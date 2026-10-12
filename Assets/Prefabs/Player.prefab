@@ -1,0 +1,167 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2626476409974127378
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 550265246905483588}
+  - component: {fileID: 4949757786447169666}
+  - component: {fileID: 1516347309298294005}
+  - component: {fileID: 138511025420742223}
+  m_Layer: 0
+  m_Name: Player
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &550265246905483588
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2626476409974127378}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7757706524297874711}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4949757786447169666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2626476409974127378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c8d7cd8b0f2b0a4b804ff57361b2706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInputHandler
+  _sailOpennessAction: {fileID: 7241396264965691859, guid: 041b3aa9020cf8949a2a979400294d48, type: 3}
+  _sailRotationAction: {fileID: -3102378097593824042, guid: 041b3aa9020cf8949a2a979400294d48, type: 3}
+  _steerAction: {fileID: 3227823149641119040, guid: 041b3aa9020cf8949a2a979400294d48, type: 3}
+--- !u!114 &1516347309298294005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2626476409974127378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d74e6468c9ff19544b0572d4edab42a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerControlModel
+  inputHandler: {fileID: 4949757786447169666}
+  initialSailOpenness: 0
+  maxSailOpenness: 100
+  opennessChangeSpeed: 45
+  initialSailRotation: 0
+  maxSailRotation: 45
+  rotationChangeSpeed: 15
+  initialSteerAngle: 0
+  maxSteerAngle: 35
+  steerChangeSpeed: 25
+--- !u!114 &138511025420742223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2626476409974127378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f7fe844484b0614d908a83a04c0fefa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SailBoatVisualsHandler
+  _controlModel: {fileID: 1516347309298294005}
+  _mastTransform: {fileID: 4486737870540789371}
+  _sailTransform: {fileID: 1526986658634479145}
+  _steerTransform: {fileID: 4612266636465647643}
+--- !u!1001 &7853082114596661352
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 550265246905483588}
+    m_Modifications:
+    - target: {fileID: 390423219264722757, guid: 7177048a7ac114b4692fc601cd19def5, type: 3}
+      propertyPath: m_Name
+      value: SailBoat
+      objectReference: {fileID: 0}
+    - target: {fileID: 527810009480865151, guid: 7177048a7ac114b4692fc601cd19def5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 527810009480865151, guid: 7177048a7ac114b4692fc601cd19def5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 527810009480865151, guid: 7177048a7ac114b4692fc601cd19def5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 527810009480865151, guid: 7177048a7ac114b4692fc601cd19def5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 527810009480865151, guid: 7177048a7ac114b4692fc601cd19def5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 527810009480865151, guid: 7177048a7ac114b4692fc601cd19def5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 527810009480865151, guid: 7177048a7ac114b4692fc601cd19def5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 527810009480865151, guid: 7177048a7ac114b4692fc601cd19def5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 527810009480865151, guid: 7177048a7ac114b4692fc601cd19def5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 527810009480865151, guid: 7177048a7ac114b4692fc601cd19def5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7177048a7ac114b4692fc601cd19def5, type: 3}
+--- !u!4 &1526986658634479145 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8776164193501634113, guid: 7177048a7ac114b4692fc601cd19def5, type: 3}
+  m_PrefabInstance: {fileID: 7853082114596661352}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4486737870540789371 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5962722755729276435, guid: 7177048a7ac114b4692fc601cd19def5, type: 3}
+  m_PrefabInstance: {fileID: 7853082114596661352}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4612266636465647643 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3240850666912634995, guid: 7177048a7ac114b4692fc601cd19def5, type: 3}
+  m_PrefabInstance: {fileID: 7853082114596661352}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7757706524297874711 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 527810009480865151, guid: 7177048a7ac114b4692fc601cd19def5, type: 3}
+  m_PrefabInstance: {fileID: 7853082114596661352}
+  m_PrefabAsset: {fileID: 0}
