@@ -30,9 +30,9 @@ public class SailBoatVisualsHandler : MonoBehaviour
         _sailTransform.localScale = newScale;
 
         //Sail
-        _mastTransform.localRotation = Quaternion.Euler(0, rotationValue, 0);
+        _mastTransform.localRotation = Quaternion.Euler(0, -rotationValue, 0);
 
         //Steer
-        _steerTransform.localRotation = Quaternion.Euler(0, steerValue, 0);
+        _steerTransform.localRotation = Quaternion.Euler(0, -steerValue, 0);
     }
 }

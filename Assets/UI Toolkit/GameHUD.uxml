@@ -1,0 +1,13 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/UnityThemes/GameHUD.uss?fileID=7433441132597879392&amp;guid=d453749c040cec545a6e8c0dacb05113&amp;type=3#GameHUD"/>
+    <ui:VisualElement name="Container" style="flex-grow: 1; padding-top: 25px; padding-right: 25px; padding-bottom: 25px; padding-left: 25px;">
+        <ui:VisualElement name="SailOpenness" class="container-gap" style="flex-grow: 0; flex-direction: row;">
+            <ui:Label text="Openess: " name="Label" style="color: rgb(0, 0, 0); font-size: 36px;"/>
+            <ui:Label text="100%" name="Value" style="color: rgb(0, 0, 0); font-size: 36px; -unity-font-style: italic;"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="SailRotation" class="container-gap" style="flex-grow: 0; flex-direction: row;">
+            <ui:Label text="Rotation:" name="Label" style="color: rgb(0, 0, 0); font-size: 36px;"/>
+            <ui:Label text="0°" name="Value" style="color: rgb(0, 0, 0); font-size: 36px; -unity-font-style: italic;"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
