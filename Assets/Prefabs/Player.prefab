@@ -64,14 +64,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   _playerRoot: {fileID: 550265246905483588}
-  _sailTransform: {fileID: 4486737870540789371}
   _controlModel: {fileID: 1516347309298294005}
-  _sailForceMultiplier: 18
-  _maxForwardSpeed: 14
+  _sailForceMultiplier: 20
+  _maxForwardSpeed: 8
   _linearDrag: 1.8
   _angularDrag: 2
   _sidewaysDragMultiplier: 4
   _turnTorqueFromSail: 25
+  _liftCoefficient: 1.5
+  _dragCoefficient: 1.1
+  _parasiticDrag: 0.08
   _velocity: {x: 0, y: 0, z: 0}
   _angularVelocity: 0
 --- !u!114 &1516347309298294005

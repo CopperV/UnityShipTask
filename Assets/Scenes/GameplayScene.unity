@@ -573,8 +573,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8284f047324a6a4ab722590f2a3c6f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WindController
-  _initialDirection: {x: 0, y: 0, z: -1}
-  _initialForce: 3
+  _initialDirection: {x: 0, y: 0, z: 1}
+  _initialForce: 10
 --- !u!1 &1097159354
 GameObject:
   m_ObjectHideFlags: 0

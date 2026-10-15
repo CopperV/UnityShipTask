@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -6,9 +5,6 @@ public class PlayerController : MonoBehaviour
     [Header("Dependencies")]
     [SerializeField]
     private Transform _playerRoot;
-
-    [SerializeField]
-    private Transform _sailTransform;
 
     [SerializeField]
     private PlayerControlModel _controlModel;
@@ -33,9 +29,15 @@ public class PlayerController : MonoBehaviour
     private float _turnTorqueFromSail = 25f;
 
     [SerializeField]
-    private Vector3 _velocity;
+    private float _liftCoefficient = 1.5f;
 
     [SerializeField]
+    private float _dragCoefficient = 1.1f;
+
+    [SerializeField]
+    private float _parasiticDrag = 0.08f;
+
+    private Vector3 _velocity;
     private float _angularVelocity;
 
     private WindController windController;
@@ -55,20 +57,14 @@ public class PlayerController : MonoBehaviour
         var sailForce = CalcSailForce();
         _velocity += sailForce * dt;
 
-        var origin = _playerRoot.position + new Vector3(0, 1.5f, 0);
-
         ApplyDrag(dt);
-        ApplySailTorque(dt);
+        ApplySailTorque(sailForce.magnitude, dt);
 
         if (_velocity.magnitude > _maxForwardSpeed)
             _velocity = _velocity.normalized * _maxForwardSpeed;
 
         _playerRoot.position += _velocity * dt;
         _playerRoot.Rotate(0f, _angularVelocity * dt, 0f, Space.World);
-
-        Debug.DrawRay(origin, sailForce, Color.red);
-        Debug.DrawRay(origin, _velocity, Color.green);
-        Debug.DrawRay(origin, windController.GetWindForceAtPoint(_playerRoot.position).normalized * 5f, Color.yellow);
     }
 
     private Vector3 CalcSailForce()
@@ -78,21 +74,36 @@ public class PlayerController : MonoBehaviour
             return Vector3.zero;
 
         var trueWind = windController.GetWindForceAtPoint(_playerRoot.position);
-        var windDir = trueWind.normalized;
-        var windForce = trueWind.magnitude;
+        var relativeWind = trueWind - _velocity;
+        var windDir = relativeWind.normalized;
+        var windForce = relativeWind.magnitude;
+        if (windForce < 0.1f)
+            return Vector3.zero;
 
-        var sailAngleWorld = _playerRoot.rotation * Quaternion.Euler(0, -_controlModel.SailRotation, 0);
-        var sailNormal = sailAngleWorld * Vector3.forward;
+        var sailRot = _playerRoot.rotation * Quaternion.Euler(0f, -_controlModel.SailRotation, 0f);
+        var sailNormal = (sailRot * Vector3.forward).normalized;
+        var sailChord = Vector3.Cross(Vector3.up, sailNormal).normalized;
 
-        var windOnSail = Vector3.Dot(windDir, sailNormal);
-        var effective = Mathf.Max(0, windOnSail);
+        var angleOfAttack = Vector3.SignedAngle(sailChord, -windDir, Vector3.up);
+        var aoaRad = angleOfAttack * Mathf.Deg2Rad;
+        aoaRad = Mathf.Clamp(aoaRad, -1.1f, 1.1f);
 
-        var force = sailNormal * (windForce * windOnSail * openness * _sailForceMultiplier);
+        var sinAoa = Mathf.Sin(aoaRad);
+        var cosAoa = Mathf.Cos(aoaRad);
 
-        var forwardPush = _playerRoot.forward * (force.magnitude * 0.35f);
-        force += forwardPush;
+        var cl = _liftCoefficient * Mathf.Sin(2f * aoaRad);
+        var cd = _dragCoefficient * (sinAoa * sinAoa) + _parasiticDrag;
 
-        return force;
+        var dynamicPressure = windForce * windForce * openness * _sailForceMultiplier * 0.04f;
+
+        var liftDir = Vector3.Cross(windDir, Vector3.up).normalized;
+        if (Vector3.Dot(liftDir, sailNormal) < 0f)
+            liftDir = -liftDir;
+
+        var liftForce = liftDir * (cl * dynamicPressure);
+        var dragForce = windDir * (cd + dynamicPressure);
+
+        return liftForce + dragForce;
     }
 
     private void ApplyDrag(float dt)
@@ -114,12 +125,13 @@ public class PlayerController : MonoBehaviour
             _angularVelocity = 0f;
     }
 
-    private void ApplySailTorque(float dt)
+    private void ApplySailTorque(float force, float dt)
     {
         var openness = _controlModel.SailOpennessNormalized;
         var sailAngle = _controlModel.SailRotation;
 
-        var torque = -sailAngle * openness * _turnTorqueFromSail * 0.02f;
+        var torque = -sailAngle * openness * force * _turnTorqueFromSail * 0.015f;
         _angularVelocity += torque * dt;
+        _angularVelocity = Mathf.Clamp(_angularVelocity, -90, 90);
     }
 }
