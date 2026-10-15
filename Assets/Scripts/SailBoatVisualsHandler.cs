@@ -26,11 +26,11 @@ public class SailBoatVisualsHandler : MonoBehaviour
         var steerValue = _controlModel.SteerAngle;
 
         //Openness
-        var newScale = new Vector3(opennessValue, opennessValue, _sailTransform.localScale.z);
+        var newScale = new Vector3(_sailTransform.localScale.x, opennessValue, opennessValue);
         _sailTransform.localScale = newScale;
 
         //Sail
-        _mastTransform.localRotation = Quaternion.Euler(0, -rotationValue, 0);
+        _mastTransform.localRotation = Quaternion.Euler(0, rotationValue, 0);
 
         //Steer
         _steerTransform.localRotation = Quaternion.Euler(0, -steerValue, 0);

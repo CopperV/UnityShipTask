@@ -4,45 +4,45 @@ public class PlayerControlModel : MonoBehaviour
 {
     [Header("Dependencies")]
     [SerializeField]
-    private PlayerInputHandler inputHandler;
+    private PlayerInputHandler _inputHandler;
 
     [Header("Sail Openness")]
     [SerializeField]
-    private float initialSailOpenness = 0f;
+    private float _initialSailOpenness = 0f;
     [SerializeField]
-    private float maxSailOpenness = 100f;
+    private float _maxSailOpenness = 100f;
     [SerializeField]
-    private float opennessChangeSpeed = 45f;
+    private float _opennessChangeSpeed = 45f;
 
     [Header("Sail Rotation")]
     [SerializeField]
-    private float initialSailRotation = 0f;
+    private float _initialSailRotation = 0f;
     [SerializeField]
-    private float maxSailRotation = 45f;
+    private float _maxSailRotation = 45f;
     [SerializeField]
-    private float rotationChangeSpeed = 15f;
+    private float _rotationChangeSpeed = 15f;
 
     [Header("Steering")]
     [SerializeField]
-    private float initialSteerAngle = 0f;
+    private float _initialSteerAngle = 0f;
     [SerializeField]
-    private float maxSteerAngle = 35f;
+    private float _maxSteerAngle = 35f;
     [SerializeField]
-    private float steerChangeSpeed = 25f;
+    private float _steerChangeSpeed = 25f;
 
     public float SailOpenness { get; private set; }
     public float SailRotation { get; private set; }
     public float SteerAngle { get; private set; }
 
-    public float SailOpennessNormalized => SailOpenness / maxSailOpenness;
-    public float SailRotationNormalized => SailRotation / maxSailRotation;
-    public float SteerAngleNormalized => SteerAngle / maxSteerAngle;
+    public float SailOpennessNormalized => SailOpenness / _maxSailOpenness;
+    public float SailRotationNormalized => SailRotation / _maxSailRotation;
+    public float SteerAngleNormalized => SteerAngle / _maxSteerAngle;
 
     private void Awake()
     {
-        SailOpenness = initialSailOpenness;
-        SailRotation = initialSailRotation;
-        SteerAngle = initialSteerAngle;
+        SailOpenness = _initialSailOpenness;
+        SailRotation = _initialSailRotation;
+        SteerAngle = _initialSteerAngle;
     }
 
     private void Update()
@@ -52,25 +52,16 @@ public class PlayerControlModel : MonoBehaviour
 
     private void HandleInputs(float dt)
     {
-        if (inputHandler == null)
+        if (_inputHandler == null)
             return;
 
-        SailOpenness += inputHandler.SailOpennessInput * opennessChangeSpeed * dt;
-        SailOpenness = Mathf.Clamp(SailOpenness, 0f, maxSailOpenness);
+        SailOpenness += _inputHandler.SailOpennessInput * _opennessChangeSpeed * dt;
+        SailOpenness = Mathf.Clamp(SailOpenness, 0f, _maxSailOpenness);
 
-        SailRotation += inputHandler.SailRotationInput * rotationChangeSpeed * dt;
-        SailRotation = Mathf.Clamp(SailRotation, -maxSailRotation, maxSailRotation);
+        SailRotation += _inputHandler.SailRotationInput * _rotationChangeSpeed * dt;
+        SailRotation = Mathf.Clamp(SailRotation, -_maxSailRotation, _maxSailRotation);
 
-        SteerAngle += inputHandler.SteerInput * steerChangeSpeed * dt;
-        SteerAngle = Mathf.Clamp(SteerAngle, -maxSteerAngle, maxSteerAngle);
-    }
-
-    private void LateUpdate()
-    {
-        if (inputHandler == null)
-            return;
-
-        Debug.Log($"Current input values: {inputHandler.SailOpennessInput} {inputHandler.SailRotationInput} {inputHandler.SteerInput}");
-        Debug.Log($"Current player values: {SailOpenness:F} {SailRotation:F} {SteerAngle:F}");
+        SteerAngle += _inputHandler.SteerInput * _steerChangeSpeed * dt;
+        SteerAngle = Mathf.Clamp(SteerAngle, -_maxSteerAngle, _maxSteerAngle);
     }
 }
