@@ -428,7 +428,7 @@ Camera:
   m_GameObject: {fileID: 727219678}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -574,7 +574,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WindController
   _initialDirection: {x: 0, y: 0, z: 1}
-  _initialForce: 10
+  _initialForce: 3
+  _maxDirectionVariation: 35
+  _directionChangeSpeed: 0.07
+  _forceVariation: 0.35
+  _forceChangeSpeed: 0.12
+  _enableGusts: 1
+  _gustStrength: 0.45
+  _gustFrequency: 0.08
+  _gustDuration: 2.5
+  _currentDirection: {x: 0, y: 0, z: 0}
+  _currentForce: 0
 --- !u!1 &1097159354
 GameObject:
   m_ObjectHideFlags: 0

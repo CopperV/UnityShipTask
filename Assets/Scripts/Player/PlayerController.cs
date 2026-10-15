@@ -85,6 +85,11 @@ public class PlayerController : MonoBehaviour
         var sailChord = Vector3.Cross(Vector3.up, sailNormal).normalized;
 
         var angleOfAttack = Vector3.SignedAngle(sailChord, -windDir, Vector3.up);
+        if (angleOfAttack > 90f)
+            angleOfAttack -= 180f;
+        if (angleOfAttack < -90f)
+            angleOfAttack += 180f;
+
         var aoaRad = angleOfAttack * Mathf.Deg2Rad;
         aoaRad = Mathf.Clamp(aoaRad, -1.1f, 1.1f);
 
