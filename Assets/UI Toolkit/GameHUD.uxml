@@ -10,6 +10,11 @@
                 <ui:Label text="Rotation:" name="Label" style="color: rgb(0, 0, 0); font-size: 36px;"/>
                 <ui:Label text="0°" name="Value" style="color: rgb(0, 0, 0); font-size: 36px; -unity-font-style: italic;"/>
             </ui:VisualElement>
+            <ui:VisualElement name="WindForce" class="container-gap" style="flex-grow: 0; flex-direction: row;">
+                <ui:Label text="Wind:" name="Wind" style="color: rgb(0, 0, 0); font-size: 36px;"/>
+                <ui:Image name="Arrow" style="background-image: url(&quot;project://database/Assets/Art/Textures/wind_arrow.png?fileID=2800000&amp;guid=c588135743ecd9c438e02fceef7c8d23&amp;type=3#wind_arrow&quot;); width: 58px; height: 58px; justify-content: center; -unity-background-image-tint-color: rgb(0, 0, 0); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0;"/>
+                <ui:Label text="0" name="Value" style="color: rgb(0, 0, 0); font-size: 36px; -unity-font-style: italic;"/>
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="CompassContainer" style="flex-grow: 1; position: absolute; top: 25px; right: 25px; width: 250px; height: 250px;">
