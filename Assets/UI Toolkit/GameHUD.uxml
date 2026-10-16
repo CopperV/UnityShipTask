@@ -1,13 +1,20 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/UnityThemes/GameHUD.uss?fileID=7433441132597879392&amp;guid=d453749c040cec545a6e8c0dacb05113&amp;type=3#GameHUD"/>
-    <ui:VisualElement name="Container" style="flex-grow: 1; padding-top: 25px; padding-right: 25px; padding-bottom: 25px; padding-left: 25px;">
-        <ui:VisualElement name="SailOpenness" class="container-gap" style="flex-grow: 0; flex-direction: row;">
-            <ui:Label text="Openess: " name="Label" style="color: rgb(0, 0, 0); font-size: 36px;"/>
-            <ui:Label text="100%" name="Value" style="color: rgb(0, 0, 0); font-size: 36px; -unity-font-style: italic;"/>
+    <ui:VisualElement name="Container" style="flex-grow: 1; flex-direction: row;">
+        <ui:VisualElement name="Info" style="flex-grow: 1; padding-top: 25px; padding-right: 25px; padding-bottom: 25px; padding-left: 25px;">
+            <ui:VisualElement name="SailOpenness" class="container-gap" style="flex-grow: 0; flex-direction: row;">
+                <ui:Label text="Openess: " name="Label" style="color: rgb(0, 0, 0); font-size: 36px;"/>
+                <ui:Label text="100%" name="Value" style="color: rgb(0, 0, 0); font-size: 36px; -unity-font-style: italic;"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="SailRotation" class="container-gap" style="flex-grow: 0; flex-direction: row;">
+                <ui:Label text="Rotation:" name="Label" style="color: rgb(0, 0, 0); font-size: 36px;"/>
+                <ui:Label text="0°" name="Value" style="color: rgb(0, 0, 0); font-size: 36px; -unity-font-style: italic;"/>
+            </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="SailRotation" class="container-gap" style="flex-grow: 0; flex-direction: row;">
-            <ui:Label text="Rotation:" name="Label" style="color: rgb(0, 0, 0); font-size: 36px;"/>
-            <ui:Label text="0°" name="Value" style="color: rgb(0, 0, 0); font-size: 36px; -unity-font-style: italic;"/>
-        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="CompassContainer" style="flex-grow: 1; position: absolute; top: 25px; right: 25px; width: 250px; height: 250px;">
+        <ui:Image name="Background" style="background-image: url(&quot;project://database/Assets/Art/Textures/compass.png?fileID=2800000&amp;guid=dffe5356de7f95c4cb20484f58f0b1c7&amp;type=3#compass&quot;); flex-grow: 1; justify-content: center;">
+            <ui:Image name="PlayerMarker" style="background-image: url(&quot;project://database/Assets/Art/Textures/player_marker.png?fileID=2800000&amp;guid=e09951e1f7cd986459c12241e4ea5a05&amp;type=3#player_marker&quot;); flex-grow: 0; rotate: 0; width: 50px; height: 50px; align-self: center;"/>
+        </ui:Image>
     </ui:VisualElement>
 </ui:UXML>

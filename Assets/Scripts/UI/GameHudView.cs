@@ -6,6 +6,9 @@ public class GameHudView : MonoBehaviour
 {
     [Header("Dependencies")]
     [SerializeField]
+    private Transform _playerRoot;
+
+    [SerializeField]
     private PlayerControlModel _controlModel;
 
     [SerializeField]
@@ -13,6 +16,7 @@ public class GameHudView : MonoBehaviour
 
     private Label _opennessValueLabel;
     private Label _rotationValueLabel;
+    private VisualElement _playerCompassMarker;
     private int _uiVersion = -1;
 
     private void OnEnable()
@@ -37,6 +41,12 @@ public class GameHudView : MonoBehaviour
 
         if (_rotationValueLabel != null)
             _rotationValueLabel.text = $"{_controlModel.SailRotation:F0}°";
+
+        if (_playerCompassMarker != null)
+        {
+            var playerRot = _playerRoot.eulerAngles.y;
+            _playerCompassMarker.style.rotate = Quaternion.Euler(0, 0, playerRot);
+        }
     }
 
     private void OnUIReload(PanelRenderer panelRenderer, VisualElement rootElement, int version)
@@ -47,5 +57,6 @@ public class GameHudView : MonoBehaviour
 
         _opennessValueLabel = rootElement?.Q<VisualElement>("SailOpenness")?.Q<Label>("Value");
         _rotationValueLabel = rootElement?.Q<VisualElement>("SailRotation")?.Q<Label>("Value");
+        _playerCompassMarker = rootElement?.Q<VisualElement>("PlayerMarker");
     }
 }
