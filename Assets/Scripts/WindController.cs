@@ -32,16 +32,28 @@ public class WindController : MonoBehaviour
     private bool _enableGusts = true;
 
     [SerializeField]
-    private float _gustStrength = 0.45f;
+    private Vector2 _gustStrengthRange = new(0.4f, 0.5f);
 
     [SerializeField]
     private float _gustFrequency = 0.08f;
 
     [SerializeField]
-    private float _gustDuration = 2.5f;
+    private Vector2 _gustDuration = new(1.2f, 3.5f);
+
+    [SerializeField]
+    private float _gustAttackTime = 0.4f;
+
+    [SerializeField]
+    private float _gustDecayTime = 1.8f;
+
+    [SerializeField, Range(0f, 1f)]
+    private float _gustDirectionInfluence = .35f;
 
     private float _gustTimer;
     private float _gustValue;
+    private float _gustTarget;
+    private float _gustStrength;
+    private float _gustDirectionOffset;
 
     [SerializeField]
     private Vector3 _currentDirection;
@@ -52,7 +64,7 @@ public class WindController : MonoBehaviour
     {
         if(Instance != null)
         {
-            Destroy(Instance.gameObject);
+            Destroy(gameObject);
             return;
         }
 
@@ -81,26 +93,31 @@ public class WindController : MonoBehaviour
 
         if(_enableGusts)
         {
-            _gustTimer -= dt;
-
-            if(_gustTimer <= 0f)
+            if(_gustTarget <= 0f && Random.value < _gustFrequency * dt)
             {
-                if(Random.value < 0.1f)
+                _gustTarget = 1f;
+                _gustStrength = Random.Range(_gustStrengthRange.x, _gustStrengthRange.y);
+                _gustTimer = Random.Range(_gustDuration.x, _gustDuration.y);
+                _gustDirectionOffset = Random.Range(-_maxDirectionVariation * 0.6f, _maxDirectionVariation * 0.6f) * _gustDirectionInfluence;
+            }
+
+            if(_gustTarget > 0f)
+            {
+                _gustTimer -= dt;
+                if (_gustTimer <= 0)
                 {
-                    _gustValue = Random.Range(0.6f, 1.2f) * _gustStrength;
-                    _gustTimer = _gustDuration;
-                }
-                else
-                {
-                    _gustValue = 0f;
-                    _gustTimer = Random.Range(1.5f, 4f) / _gustFrequency;
+                    _gustTarget = 0f;
                 }
             }
 
-            if(_gustValue > 0f)
+            var speed = _gustTarget > 0f ? (1f / _gustAttackTime) : (1f / _gustDecayTime);
+            _gustValue = Mathf.MoveTowards(_gustValue, _gustTarget, speed * dt);
+
+            _currentForce += _initialForce * _gustValue * _gustStrength;
+
+            if(_gustValue > 0.01f)
             {
-                _gustValue = Mathf.MoveTowards(_gustValue, 0f, dt * _gustStrength / _gustDuration);
-                _currentForce += _initialForce * _gustValue;
+                _currentDirection = Quaternion.Euler(0f, _gustDirectionOffset * _gustValue, 0f) * _currentDirection;
             }
         }
     }
