@@ -49,6 +49,19 @@ public class WindController : MonoBehaviour
     [SerializeField, Range(0f, 1f)]
     private float _gustDirectionInfluence = .35f;
 
+    [Header("Spatial Turbulence")]
+    [SerializeField]
+    private float _turbulenceStrength = 0.28f;
+
+    [SerializeField]
+    private float _turbulenceScale = 0.035f;
+
+    [SerializeField]
+    private float _turbulanceSpeed = 0.4f;
+
+    [SerializeField]
+    private float _directionTurbulence = 14f;
+
     private float _gustTimer;
     private float _gustValue;
     private float _gustTarget;
@@ -124,6 +137,21 @@ public class WindController : MonoBehaviour
 
     public Vector3 GetWindForceAtPoint(Vector3 point)
     {
-        return _currentDirection * _currentForce;
+        var t = Time.time * _turbulanceSpeed;
+
+        var forceNoise = Mathf.PerlinNoise(
+            point.x * _turbulenceScale + t, 
+            point.y * _turbulenceScale + t * 0.73f
+        ) * 2f - 1f;
+        var localForce = _currentForce * (1f + forceNoise * _turbulenceStrength);
+
+        var dirNoise = Mathf.PerlinNoise(
+            point.x * _turbulenceScale * 0.85f - t * 0.53f + 119,
+            point.y * _turbulenceScale * 0.85f - t * 0.89f + 119
+        ) * 2f - 1f;
+        var extraAngle = dirNoise * _directionTurbulence;
+        var localDirection = Quaternion.Euler(0f, extraAngle, 0f) * _currentDirection;
+
+        return localDirection * localForce;
     }
 }
