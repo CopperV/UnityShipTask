@@ -57,7 +57,7 @@ public class WindController : MonoBehaviour
     private float _turbulenceScale = 0.035f;
 
     [SerializeField]
-    private float _turbulanceSpeed = 0.4f;
+    private float _turbulenceSpeed = 0.4f;
 
     [SerializeField]
     private float _directionTurbulence = 14f;
@@ -137,7 +137,7 @@ public class WindController : MonoBehaviour
 
     public Vector3 GetWindForceAtPoint(Vector3 point)
     {
-        var t = Time.time * _turbulanceSpeed;
+        var t = Time.time * _turbulenceSpeed;
 
         var forceNoise = Mathf.PerlinNoise(
             point.x * _turbulenceScale + t, 

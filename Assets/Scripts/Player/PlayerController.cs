@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -49,11 +48,11 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 _velocity;
     private float _angularVelocity;
-    private WindController windController;
+    private WindController _windController;
 
     private void Start()
     {
-        windController = WindController.Instance;
+        _windController = WindController.Instance;
     }
 
     private void FixedUpdate()
@@ -87,7 +86,7 @@ public class PlayerController : MonoBehaviour
         if (Mathf.Approximately(openness, 0f))
             return Vector3.zero;
 
-        var trueWind = windController.GetWindForceAtPoint(_playerRoot.position);
+        var trueWind = _windController.GetWindForceAtPoint(_playerRoot.position);
         var relativeWind = trueWind - _velocity;
         var windDir = relativeWind.normalized;
         var windForce = relativeWind.magnitude;
