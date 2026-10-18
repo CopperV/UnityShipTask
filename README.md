@@ -4,9 +4,7 @@
 
 ## 0. Prezentacja projektu
 
-<video src="Media/Preview.mp4" controls width="800">
-  Twoja przeglądarka nie obsługuje odtwarzania wideo.
-</video>
+https://www.youtube.com/watch?v=2rObw8arBeI
 
 ---
 
