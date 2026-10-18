@@ -4,7 +4,7 @@
 
 ## 0. Prezentacja projektu
 
-https://www.youtube.com/watch?v=2rObw8arBeI
+[![Prezentacja projektu](https://img.youtube.com/vi/2rObw8arBeI/maxresdefault.jpg)](https://www.youtube.com/watch?v=2rObw8arBeI)
 
 ---
 
