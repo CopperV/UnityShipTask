@@ -2,6 +2,14 @@
 
 ---
 
+## 0. Prezentacja projektu
+
+<video src="Media/Preview.mp4" controls width="800">
+  Twoja przeglądarka nie obsługuje odtwarzania wideo.
+</video>
+
+---
+
 ## 1. Ogólny zamysł
 
 Poruszanie się łódką bazuje na sile generowanej przez żagiel oraz opór stawiany przez łódkę (żagiel + kadłub).

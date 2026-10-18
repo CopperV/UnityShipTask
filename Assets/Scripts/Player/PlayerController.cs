@@ -86,6 +86,8 @@ public class PlayerController : MonoBehaviour
         if (Mathf.Approximately(openness, 0f))
             return Vector3.zero;
 
+        //Relative wind to calculate properly aerodynamic forces
+        //If windForce is zero then we cannot get any force from sail
         var trueWind = _windController.GetWindForceAtPoint(_playerRoot.position);
         var relativeWind = trueWind - _velocity;
         var windDir = relativeWind.normalized;
@@ -93,10 +95,14 @@ public class PlayerController : MonoBehaviour
         if (windForce < 0.1f)
             return Vector3.zero;
 
+        //The rotation of the sail affects not only the direction but also the force of forward motion
+        //For this reason, we break it down into a component perpendicular to the sail and a component parallel to the sail
         var sailRot = _playerRoot.rotation * Quaternion.Euler(0f, -_controlModel.SailRotation, 0f);
         var sailNormal = (sailRot * Vector3.forward).normalized;
         var sailChord = Vector3.Cross(Vector3.up, sailNormal).normalized;
 
+        //Calculating the angle between the sail and the relative wind
+        //If it exceeds the specified limits, we adjust the angle by ±180 degrees
         var angleOfAttack = Vector3.SignedAngle(sailChord, -windDir, Vector3.up);
         if (angleOfAttack > 90f)
             angleOfAttack -= 180f;
@@ -109,6 +115,8 @@ public class PlayerController : MonoBehaviour
         var sinAoa = Mathf.Sin(aoaRad);
         var cosAoa = Mathf.Cos(aoaRad);
 
+        //Calculating lift and drag coefficients
+        //The formula is simplified for game purposes
         var cl = _liftCoefficient * Mathf.Sin(2f * aoaRad);
         var cd = _dragCoefficient * (sinAoa * sinAoa) + _parasiticDrag;
 
@@ -125,6 +133,7 @@ public class PlayerController : MonoBehaviour
         return liftForce + dragForce;
     }
 
+    //The boat also creates a drag force so we need to calculate it
     private Vector3 CalcHullDragForce()
     {
         var forward = _playerRoot.forward;

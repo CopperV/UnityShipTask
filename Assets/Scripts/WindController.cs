@@ -96,6 +96,7 @@ public class WindController : MonoBehaviour
     {
         var time = Time.time;
 
+        //Calculating new wind direction and force based on Perlin Noise
         var dirNoise = Mathf.PerlinNoise(time * _directionChangeSpeed, 0.5f) * 2f - 1f;
         var angle = dirNoise * _maxDirectionVariation;
         _currentDirection = Quaternion.Euler(0f, angle, 0f) * _initialDirection.normalized;
@@ -106,6 +107,7 @@ public class WindController : MonoBehaviour
 
         if(_enableGusts)
         {
+            //If gust is not in attack state and we are lucky then apply new gust
             if(_gustTarget <= 0f && Random.value < _gustFrequency * dt)
             {
                 _gustTarget = 1f;
@@ -114,15 +116,18 @@ public class WindController : MonoBehaviour
                 _gustDirectionOffset = Random.Range(-_maxDirectionVariation * 0.6f, _maxDirectionVariation * 0.6f) * _gustDirectionInfluence;
             }
 
+            //While gust is in attack state
             if(_gustTarget > 0f)
             {
                 _gustTimer -= dt;
+                //Switch to decay state
                 if (_gustTimer <= 0)
                 {
                     _gustTarget = 0f;
                 }
             }
 
+            //Modify gust value base on gust state (attack or decay)
             var speed = _gustTarget > 0f ? (1f / _gustAttackTime) : (1f / _gustDecayTime);
             _gustValue = Mathf.MoveTowards(_gustValue, _gustTarget, speed * dt);
 
@@ -139,6 +144,7 @@ public class WindController : MonoBehaviour
     {
         var t = Time.time * _turbulenceSpeed;
 
+        //Turbulance allows us to get different wind values in different positions
         var forceNoise = Mathf.PerlinNoise(
             point.x * _turbulenceScale + t, 
             point.y * _turbulenceScale + t * 0.73f
